@@ -70,17 +70,13 @@ node keepalive.js
 
 c. **Monitor the Output**:
    - If successful, you will see logs in the terminal like:
-     ```
-     ✅ Successfully logged into the specified workspace.
-     Simulating activity: 12:34:56
-     ```
+     
+     ![image](https://github.com/user-attachments/assets/194ee0c4-602c-44a9-ad1a-dfc6d0a6c8bf)
 
 ---
 
 ## Notes
 - **Signing out** from Gitpod in the browser will invalidate the cookies used by this script. Make sure to update the `cookies.json` file if you sign out or if your cookies expire.
-- For an automated solution, you can consider using **OAuth** or **Personal Access Tokens** via Gitpod API to refresh cookies without having to log in manually.
-
 ---
 
 By following the steps above, you will be able to keep your Gitpod workspace active without worrying about session timeouts. If you have any questions or run into issues, feel free to open an **issue** !
