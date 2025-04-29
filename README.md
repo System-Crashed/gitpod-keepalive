@@ -23,9 +23,13 @@ Before you begin, make sure you have the following:
 ### 1. Getting Cookies from Gitpod Browser
 
 a. **Login to Gitpod** using your GitHub account in your browser.
+
 b. Access the Gitpod workspace you want to keep active.
+
 c. Open **Developer Tools** (DevTools) in your browser by pressing `F12` or right-clicking and selecting "Inspect" or "Inspect Element".
+
 d. Go to the **Console** tab in DevTools.
+
 e. On the bottom, paste this to your Console
 ```bash
 const cookies = document.cookie.split('; ').map(c => {
@@ -34,7 +38,8 @@ const cookies = document.cookie.split('; ').map(c => {
 });
 copy(JSON.stringify(cookies, null, 2));
 ```
-e. Paste the copied cookies into a new file called `cookies.json` on your computer or VPS.
+
+f. Paste the copied cookies into a new file called `cookies.json` on your computer or VPS.
    (cookies are automatically copied to your clipboard and you only need to paste it)
 
 ### 2. Set Up the `keepalive.js` Script
