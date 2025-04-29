@@ -5,6 +5,7 @@ This project uses **Puppeteer** to keep your **Gitpod workspace active** by auto
 ## Features
 - Simulates activity (moving the mouse and pressing keys) every 5 minutes to keep the session alive.
 - Runs **headless** (without a graphical user interface) on a VPS or server.
+- Includes multiple workspace
 
 ---
 
