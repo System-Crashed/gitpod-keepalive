@@ -3,7 +3,6 @@
 This project uses **Puppeteer** to keep your **Gitpod workspace active** by automatically simulating activity (moving the mouse and pressing keys) every few minutes. This helps prevent session timeouts that occur after periods of inactivity.
 
 ## Features
-- Uses **cookies** copied from your browser to automatically log in to Gitpod.
 - Simulates activity (moving the mouse and pressing keys) every 5 minutes to keep the session alive.
 - Runs **headless** (without a graphical user interface) on a VPS or server.
 
@@ -14,35 +13,33 @@ Before you begin, make sure you have the following:
 - **Node.js** and **npm** installed on your system.
 - A **VPS** or server where you can run this script.
 - A **Gitpod workspace** that you have logged into using your GitHub account.
-- **Cookies** exported from your browser after logging into Gitpod.
+- **Personal Access Token (PAT)** from your GitHub profile for authentication.
 
 ---
 
 ## Steps
 
-### 1. Getting Cookies from Gitpod Browser
+### 1. Get Personal Access Token (PAT)
+a. Go to your GitHub Settings:
+URL: https://github.com/settings/tokens
 
-a. **Login to Gitpod** using your GitHub account in your browser.
+b. Click “Fine-grained tokens” or “Tokens (classic)”
 
-b. Access the Gitpod workspace you want to keep active.
+c. Click “Generate new token (classic)”
 
-c. Open **Developer Tools** (DevTools) in your browser by pressing `F12` or right-clicking and selecting "Inspect" or "Inspect Element".
+d. Set token options:
+- Note: Gitpod Keep-Alive Script (or any name)
+- Expiration: Set it to "No expiration" or choose a timeframe.
+- Scopes:
+   - read:user
+   - user:email
+   - repo (only if you're using Gitpod with private repositories)
 
-d. Go to the **Console** tab in DevTools.
+e. Click “Generate token”
 
-e. On the bottom, paste this to your Console
-```bash
-const cookies = document.cookie.split('; ').map(c => {
-  const [name, ...v] = c.split('=');
-  return { name, value: v.join('='), domain: '.gitpod.io', path: '/' };
-});
-copy(JSON.stringify(cookies, null, 2));
-```
+f. Copy the token shown. You won’t see it again.
 
-f. Paste the copied cookies into a new file called `cookies.json` on your computer or VPS.
-   (cookies are automatically copied to your clipboard and you only need to paste it)
-
-### 2. Set Up the `keepalive.js` Script
+### 2. Set Up the `workspace.txt` and `.env` Script
 
 a. Set screen
 ```bash
@@ -51,29 +48,37 @@ screen -S gitpod-keepalive
 
 b. Clone the repository
 ```bash
-git clone https://github.com/System-Crashed/gitpod-keepalive.git && cd gitpod-keepalive.git && npm puppeteer fs
+git clone https://github.com/System-Crashed/gitpod-keepalive.git && cd gitpod-keepalive.git && npm puppeteer fs dotenv
 ```
 
-c. Edit workspace
+c. Edit `workspaces.txt`
 ```bash
-nano keepalive.js
+nano workspaces.txt
 ```
-and edit this line
+Edit with your workspaces
 ```bash
-await page.goto('YOUR_WORKSPACE_DOMAIN.gitpod.io', { waitUntil: 'networkidle2' });
+https://ws1.gitpod.io
+https://ws2.gitpod.io
+https://ws3.gitpod.io
+```
+
+d. Edit `.env` for your PAT
+```bash
+nano .env
+```
+```bash
+GITHUB_USERNAME=your_github_username
+GITHUB_PAT=your_github_personal_access_token
 ```
 
 ### 4. Running the Script
-
-a. **Make sure the `cookies.json`** file you is saved in same directory (in this case inside gitpod-keepalive dir).
-
-b. **Run the script** with the following command:
+**Run the script** with the following command:
 
 ```bash
 node keepalive.js
 ```
 
-c. **Monitor the Output**:
+**Monitor the Output**:
    - If successful, you will see logs in the terminal like:
      
      ![image](https://github.com/user-attachments/assets/194ee0c4-602c-44a9-ad1a-dfc6d0a6c8bf)
@@ -81,7 +86,7 @@ c. **Monitor the Output**:
 ---
 
 ## Notes
-- **Signing out** from Gitpod in the browser will invalidate the cookies used by this script. Make sure to update the `cookies.json` file if you sign out or if your cookies expire.
+- **Signing out** from Gitpod in the browser will invalidate the sessions.
 ---
 
 By following the steps above, you will be able to keep your Gitpod workspace active without worrying about session timeouts. If you have any questions or run into issues, feel free to open an **issue** !
