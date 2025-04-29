@@ -49,7 +49,7 @@ screen -S gitpod-keepalive
 
 b. Clone the repository
 ```bash
-git clone https://github.com/System-Crashed/gitpod-keepalive.git && cd gitpod-keepalive.git && npm puppeteer fs dotenv
+git clone https://github.com/System-Crashed/gitpod-keepalive.git && cd gitpod-keepalive && npm i puppeteer fs dotenv
 ```
 
 c. Edit `workspaces.txt`
